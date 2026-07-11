@@ -10,20 +10,90 @@ A modern backend API service connected to a relational PostgreSQL database model
 
 - ORM: [Drizzle ORM](https://orm.drizzle.team/)
 
-- Database: PostgreSQL (Production via [Neon](https://neon.com/), Local dev via Docker coming up)
+- Database: PostgreSQL (Production via [Neon](https://neon.com/))
 
-## Local Development Setup
+## Prerequisite installs
 
-To install dependencies:
+### Bun
+
+  Install bun through their installation doc [here](https://bun.com/docs/installation)
+
+### Docker
+
+  Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (macOS/Windows) or follow the [Docker Engine install guide](https://docs.docker.com/engine/install/) on Linux.
+
+  If you have Homebrew installed locally, you can install through:
+
+  ```bash
+  brew install --cask docker
+  ```
+
+## How to run Hono backend
+
+Install dependencies
 
 ```bash
 bun install
 ```
 
-To run:
+Copy the example env file
 
 ```bash
-bun run index.ts
+cp .env.example .env
 ```
 
-This project was created using `bun init` in bun v1.3.14. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+Start local Postgres through docker compose
+
+```bash
+docker compose up -d
+```
+
+Apply migrations
+
+```bash
+bun run db:migrate
+```
+
+Run the app
+
+```bash
+bun run dev
+```
+
+Happy developing 🎉
+
+## Working with the database
+
+Change a schema file under `src/db/schema/`, then generate a migration:
+
+```bash
+bun run db:generate
+```
+
+Apply it locally
+
+```bash
+bun run db:migrate
+```
+
+Browse/edit data visually
+
+```bash
+bun run db:studio
+```
+
+## Production (Neon)
+
+Only admins push schema changes to Neon. This requires a `.env.production` file
+(ask an admin for the connection string) holding the Neon `DATABASE_URL`. Once
+in place:
+
+```bash
+bun run db:migrate:prod
+```
+
+## Contributors
+
+<a href="https://github.com/JuCJeff/dnd-players-handbook-2024/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JuCJeff/dnd-players-handbook-2024" />
+</a>
