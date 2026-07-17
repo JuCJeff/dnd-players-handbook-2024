@@ -14,10 +14,6 @@ A modern backend API service connected to a relational PostgreSQL database model
 
 ## Prerequisite installs
 
-### Bun
-
-  Install bun through their installation doc [here](https://bun.com/docs/installation)
-
 ### Docker
 
   Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (macOS/Windows) or follow the [Docker Engine install guide](https://docs.docker.com/engine/install/) on Linux.
@@ -28,7 +24,29 @@ A modern backend API service connected to a relational PostgreSQL database model
   brew install --cask docker
   ```
 
+### Bun (only needed for [Option B](#option-b-native-bun) below)
+
+  Install bun through their installation doc [here](https://bun.com/docs/installation)
+
 ## How to run Hono backend
+
+### Option A: Docker (recommended, no Bun install required)
+
+Copy the example env file
+
+```bash
+cp .env.example .env
+```
+
+Start Postgres + the app (migrations run automatically on startup)
+
+```bash
+docker compose up
+```
+
+The API is now live at `http://localhost:3000` with hot reload.
+
+### Option B: Native Bun
 
 Install dependencies
 
@@ -45,7 +63,7 @@ cp .env.example .env
 Start local Postgres through docker compose
 
 ```bash
-docker compose up -d
+docker compose up -d db
 ```
 
 Apply migrations
@@ -59,8 +77,6 @@ Run the app
 ```bash
 bun run dev
 ```
-
-Happy developing 🎉
 
 ## Working with the database
 
